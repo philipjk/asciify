@@ -1,3 +1,4 @@
 *.ipynb
+*.pyc
 results/
 letterset_test/
