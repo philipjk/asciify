@@ -1,9 +1,8 @@
-from PIL import Image, ImageDraw, ImageFont
+from PIL import Image, ImageDraw, ImageFont, ImageOps
 from imageio import imread
 import numpy as np
 import string
 import os
-import imageio
 
 class AsciiArt():
     
@@ -57,8 +56,11 @@ class AsciiArt():
                 best_filt = self.filters[idx]
         return best_filt
     
-    def asciify(self, filename=''):
-        img_br = Image.open(filename).convert('L')
+    def asciify(self, filename='', invert=True):
+        if invert:
+            img_br = ImageOps.invert(Image.open(filename).convert('L'))
+        else:
+            img_br = Image.open(filename).convert('L')
         width, height = img_br.size
         r = float(height)/width
         wn = int(self.font_image_size[0]*self.resizer)
